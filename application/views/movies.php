@@ -14,7 +14,7 @@
 
 			<ul class="nav nav-tabs">
 				<li ><a href="<?php echo base_url(); ?>index.php/actors?query=<?php echo urlencode($this->input->get('query'));?>">Actors</a></li>
-				<li class="active"><a href="#">Movies</a></li>
+				<li class="active"><a href="#">Movies  <span class="badge"><?php echo $result['total_results']; ?></span></a></li>
 			 	<li class="search pull-right">
 				  	<form class="form-inline" role="form" method="get" action="<?php echo base_url()?>index.php/movies">
 						<input type="text" required class="form-control" id="inputEmail3" name="query" placeholder="Search for a movie...">
@@ -24,6 +24,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content">
+					<!-- Print the query results -->
 					<?php if($result['total_results']>0): ?>
 						<?php foreach ($result['results'] as $key => $movie): ?>
 							<div class="col-md-3 movies">
@@ -34,12 +35,13 @@
 								<?php endif; ?>
 								<span class="name">
 									<a href="<?php echo base_url(); ?>index.php/movie/index/<?php echo $movie['id'];?>">
-										<h2><small><?php echo $movie['original_title'];?></small></h2>
+										<h2><small><?php echo (strlen($movie['original_title']) > 40) ? substr($movie['original_title'],0,40).'...' : $movie['original_title'];?></small></h2>
 									</a>
 								</span>
 							</div>
 						<?php endforeach ?>
 					<?php else: ?>
+						<!-- Not results -->
 						<div class="col-md-12">
 							<h2><small>We didn't find any movie that matched your query of </small><?php echo $this->input->get('query'); ?></h2>
 						</div>
@@ -48,6 +50,7 @@
 				</div>
 			</div>
 			<div class="row">
+			<!-- Pagination -->
 				<div class="col-md-12">
 					<?php echo $links; ?>
 				</div>
@@ -59,11 +62,7 @@
 			</div>
 			<p class="footer text-center">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
 			<?php  $this->load->view('includes/footer'); ?>
-			
-
-			
 		</div>
 		<?php  $this->load->view('includes/scripts'); ?>
-
 	</body>
 </html>

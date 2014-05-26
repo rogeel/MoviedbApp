@@ -14,7 +14,7 @@
 			<ul class="nav nav-tabs">
 				<li class="active">
 					<a href="#">
-						<?php echo $movie['original_title'];?>
+						Movie: <?php echo (strlen($movie['original_title']) > 40) ? substr($movie['original_title'],0,40).'...' : $movie['original_title'];?>
 					</a>
 				</li>
 			 	<li class="search pull-right">
@@ -25,7 +25,8 @@
 			</ul>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="content actorinfo">
+					<div class="content movieinfo">
+						<!-- Movie image -->
 						<div class="col-md-3">
 							<?php if ($movie['poster_path']): ?>
 								<img src="<?php echo $config['images']['base_url'].$config['images']['poster_sizes'][3].$movie['poster_path']; ?>" class='img-responsive' alt="<?php echo $movie['original_title']; ?>" title="<?php echo $movie['original_title']; ?>">
@@ -33,7 +34,9 @@
 								<img src="https://d3a8mw37cqal2z.cloudfront.net/assets/e7e54489e81e8eb1/images/no-profile-w185.jpg" class='img-responsive' alt="">
 							<?php endif; ?>
 						</div>
+						<!-- Movie Info -->
 						<div class="col-md-8">
+							<h2><?php echo $movie['original_title'] ?></h2>
 							<h2><small>Overview</small></h2>
 							<div class="text-justify">
 								<?php echo $movie['overview']; ?>
@@ -48,31 +51,19 @@
 									<li><?php echo $company['name'] ?></li>
 								<?php endforeach ?>
 							</ul>
+							<!-- Movie Rating -->
 							<h3><small>Rating</small></h3>
 							<div class="progress">
 							  <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $movie['vote_average']*10; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $movie['vote_average']*10; ?>%;">
 							    <?php echo $movie['vote_average']; ?> from <?php echo $movie['vote_count'] ?> votes
 							  </div>
 							</div>
-								
 						</div>
-
-						
-
-			
-			
-					
-					<?php //print_r( $config['images']['base_url']); ?>
-					<?php //print_r( $config['images']) ?>
-					<?php //print_r($config['images']['poster_sizes'][2]); ?>
 					</div>
 				</div>
-			</div>
-
-			
+			</div>			
 			<?php  $this->load->view('includes/footer'); ?>
 		</div>
 		<?php  $this->load->view('includes/scripts'); ?>
-
 	</body>
 </html>

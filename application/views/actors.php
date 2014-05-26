@@ -11,7 +11,7 @@
 		<div id="container" class="container">
 			<?php  $this->load->view('includes/header'); ?>
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#">Actors</a></li>
+				<li class="active"><a href="#">Actors <span class="badge"><?php echo $result['total_results']; ?></span></a></li>
 				<li><a href="<?php echo base_url(); ?>index.php/movies?query=<?php echo urlencode($this->input->get('query')); ?>">Movies</a></li>
 			 	<li class="search pull-right">
 				  	<form class="form-inline" role="form" method="get" action="<?php echo base_url()?>index.php/actors">
@@ -22,6 +22,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content">
+					<!-- Print the query results -->
 					<?php if($result['total_results']>0): ?>
 						<?php foreach ($result['results'] as $key => $actor): ?>
 							<div class="col-md-3 actor">
@@ -39,6 +40,7 @@
 							</div>
 						<?php endforeach ?>
 					<?php else: ?>
+						<!-- Not results -->
 						<div class="col-md-12">
 							<h2><small>We didn't find any people that matched your query of </small><?php echo $this->input->get('query'); ?></h2>
 						</div>
@@ -47,6 +49,7 @@
 				</div>
 			</div>
 			<div class="row">
+			<!-- Pagination -->
 				<div class="col-md-12">
 					<?php echo $links; ?>
 				</div>

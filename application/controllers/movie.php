@@ -20,23 +20,23 @@ class Movie extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		//Load the models
 		$this->load->model("movie_model");
 		$this->load->model("general");
-		
-		
-		
-		
+	
 	}
 
 	public function index($id)
 	{
-		
+		//Gets the  API configuration
 		$data['config']= $this->general->config();
+		//Get movie info
 		$result= $this->movie_model->get_movie($id);
 		$data['movie']= $result;
+		//Load view and send data
 		$this->load->view('movie',$data);
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file movie.php */
+/* Location: ./application/controllers/movie.php */
