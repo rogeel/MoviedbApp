@@ -20,6 +20,7 @@ class Actors extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		//Load the models for the searches and the pagination library for create the pagination
 		$this->load->model("actors_model");
 		$this->load->model("general");
 		$this->load->library("pagination");
@@ -27,14 +28,18 @@ class Actors extends CI_Controller {
 
 	public function index()
 	{
+		//Get the  API configuration 
 		$data['config']= $this->general->config();
+		// Get search results, We send the string query and page's number, if are the first results we don't send page's number.
 		$data['result']= $this->actors_model->search($this->input->get('query'),$this->input->get('page'));
+		//Setting the pagination library
 		$config["total_rows"] = $data['result']['total_results'];
-        $config["per_page"] = 20;
+        $config["per_page"] = 20; // Number of results returned by the API
         $config['use_page_numbers'] = TRUE;
         $config['page_query_string'] = true;
         $config['query_string_segment'] = 'page';
- 		$config["base_url"] = current_url().'?query='.urlencode($this->input->get('query'));
+ 		$config["base_url"] = current_url().'?query='.urlencode($this->input->get('query')); // Get the current url to use it on pagination's link
+ 		//Customize the links for boostrap
  		$config['full_tag_open'] = '<ul class="pagination pull-right">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_tag_open'] = '<li>';
@@ -50,7 +55,9 @@ class Actors extends CI_Controller {
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
         $this->pagination->initialize($config);
+        //Send links
 		$data["links"] = $this->pagination->create_links();
+		//Load view and send data
 		$this->load->view('actors',$data);
 	}
 }

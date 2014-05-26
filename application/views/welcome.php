@@ -5,6 +5,7 @@
 		<title>Welcome</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<!-- Load css files -->
 		<?php  $this->load->view('includes/css'); ?>
 	</head>
 	<body>
@@ -30,6 +31,7 @@
 			<?php  $this->load->view('includes/footer'); ?>
 			<!--<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>-->
 		</div>
+		<!-- Load js files -->
 		<?php  $this->load->view('includes/scripts'); ?>
 	</body>
 </html>
