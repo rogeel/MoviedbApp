@@ -2,17 +2,14 @@
 
 class General extends CI_Model {
 
-	//create
-	
-
+	//Gets the API configuration
 	public function config(){
 		
+		//We set the API url
 		$mode = 'configuration';
-		$apiKey = '?api_key='.API_KEY;
-		
-		$url_search = URL_API.$mode.$apiKey;
-		//return $url_search;
-		//echo json_decode($this->curl->simple_get($url_search));
+		$apiKey = '?api_key='.API_KEY; // API_KEY is defined in config/constants.php
+		$url_search = URL_API.$mode.$apiKey;  //URL APIS is defined in config/constants.php
+		//We use curl for get the json object 
 		$ca = curl_init();
 		curl_setopt($ca, CURLOPT_URL, $url_search);
 		curl_setopt($ca, CURLOPT_RETURNTRANSFER, TRUE);
@@ -20,7 +17,6 @@ class General extends CI_Model {
 		curl_setopt($ca, CURLOPT_HTTPHEADER, array("Accept: application/json"));
 		$response = curl_exec($ca);
 		curl_close($ca);
-		//var_dump($response);
 		$config = json_decode($response, true);
 		return $config;
 		
